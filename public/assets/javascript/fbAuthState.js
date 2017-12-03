@@ -1,33 +1,35 @@
-initApp = function () {
-    firebase.auth().onAuthStateChanged(function (user) {
+initApp = function() {
+    firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var uid = user.uid;
+        var phoneNumber = user.phoneNumber;
         var providerData = user.providerData;
-        console.log(providerData);
-        $.get('/user/' + providerData[0].uid, function (data) {
-          if (data.exist == 'true') {
-            console.log('user does exist');
-            setTimeout(function () {
-              location.href = 'data.html';
-            }, 2000);
-          } else {
-            console.log('user does not exist');
-            setTimeout(function () {
-              location.href = 'survey.html';
-            }, 2000);
-            $.post('/api/user', {
-              user: providerData
-            }, function () {});
-          }
+        user.getIdToken().then(function(accessToken) {
+          console.log(JSON.stringify({
+            displayName: displayName,
+            email: email,
+            emailVerified: emailVerified,
+            phoneNumber: phoneNumber,
+            photoURL: photoURL,
+            uid: uid,
+            accessToken: accessToken,
+            providerData: providerData
+          }, null, '  '));
         });
       } else {
-        console.log("You are not signed in");
+        // User is signed out.
+        location.href = "index.html";        
       }
-    }, function (error) {
+    }, function(error) {
       console.log(error);
     });
   };
 
-  window.addEventListener('load', function () {
-    initApp();
+  window.addEventListener('load', function() {
+    initApp()
   });
