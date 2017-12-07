@@ -11,16 +11,16 @@ initApp = function () {
             var phoneNumber = user.phoneNumber;
             var providerData = user.providerData;
             user.getIdToken().then(function (accessToken) {
-                console.log(JSON.stringify({
-                    displayName: displayName,
-                    email: email,
-                    emailVerified: emailVerified,
-                    phoneNumber: phoneNumber,
-                    photoURL: photoURL,
-                    uid: uid,
-                    accessToken: accessToken,
-                    providerData: providerData
-                }, null, '  '));
+                // console.log(JSON.stringify({
+                //     displayName: displayName,
+                //     email: email,
+                //     emailVerified: emailVerified,
+                //     phoneNumber: phoneNumber,
+                //     photoURL: photoURL,
+                //     uid: uid,
+                //     accessToken: accessToken,
+                //     providerData: providerData
+                // }, null, '  '));
             });
 
             // Create a reference to this user's specific status node.
@@ -71,7 +71,7 @@ initApp = function () {
 
         } else {
             // User is signed out.
-            location.href = "index.html";
+            location.href = "index.html"
         }
     }, function (error) {
         console.log(error);
